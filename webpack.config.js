@@ -7,9 +7,9 @@ module.exports = {
     filename: 'index.bundle.js',
   },
   devServer: {
-    port: 3050,
+    port: 3052,
     watchContentBase: true,
-   // historyApiFallback: true, // corrige o erro cannot get pagina do  <Switch> < Route path="/pag1" component={ Pag1 } /></Swith>
+    historyApiFallback: true, // corrige o erro cannot get pagina do  <Switch> < Route path="/pag1" component={ Pag1 } /></Swith>
   },
   module: {
     rules: [
