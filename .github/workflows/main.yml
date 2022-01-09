@@ -15,5 +15,5 @@ jobs:
           user: adilsonxavier
           password: Maysaaxs2004*
           local_dir: "./public"
-          remote_dir: costs/
+          remote_dir: costs
           delete: "true"
