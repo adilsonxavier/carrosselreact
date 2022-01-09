@@ -24,6 +24,9 @@ export default function Navbar(props) {
                 <li>
                     <Link to="/contact" >Contato</Link>
                 </li>
+                <li>
+                    <Link to="/newproject" >Novo Projeto</Link>
+                </li>
             </ul>
 
             {/*            </Container>*/}
