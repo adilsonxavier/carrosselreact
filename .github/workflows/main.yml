@@ -14,6 +14,11 @@ jobs:
           server: adilsonxdesouza.somee.com/www.adilsonxdesouza.somee.com
           user: adilsonxavier
           password: Maysaaxs2004*
+<<<<<<< HEAD
           local_dir: "./dist"
           remote_dir: costs
+=======
+          local_dir: "./public"
+          remote_dir: cost/
+>>>>>>> release/1.1.1_aula22
           delete: "true"
