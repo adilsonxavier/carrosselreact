@@ -7,7 +7,11 @@ export default function Select({ type, labelText, name,options, placeHolder, han
     return (
         <div className={styles.form_control}>
             <label htmlFor={name}>{labelText}</label>
-            <select name={name} id={ name}>
+            <select name={name}
+                id={name}
+                onChange={handleOnChange}
+                value={value || ""}
+            >
                 <option>Selecione Opcao</option>
                 {options.map((option) => (
                     <option value={option.id} key={option.id}>{option.name }</option>)
