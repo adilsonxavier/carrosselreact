@@ -22,7 +22,7 @@ export default function ProjectForm({ handleSubmit,btnText,projectData }) {
             .then((resp) => resp.json())
             .then((data) =>
                 setCategories(data))
-            .catch((err) => console.log(err));
+            .catch((err) => console.log("o erro do fetch foi: "+ err));
     },[] // Precisa deste segundo argunebto de array vazio pra ele carregar o json
     );
 

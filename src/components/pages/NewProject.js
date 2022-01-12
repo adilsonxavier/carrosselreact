@@ -23,9 +23,9 @@ export default function NewProject() {
             .then((resp) => resp.json())
             .then((data) => {
                 console.log(data);
-                history.push("/projects", { message: "projecto criado com sucesso" });
+                history.push("/projects", { message: "projeto foi criado com sucesso 1220", minhaprop:"valor minha prop 1220" });
             })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log("erro post:"+ err));
 }
 
     return (
