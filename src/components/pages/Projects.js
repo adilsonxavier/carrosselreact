@@ -13,6 +13,8 @@ export default function Projects() {
 
     const [showLoading, setShowLoading] = React.useState(true);
 
+    const [projectMessage, setProjectMessage] = React.useState("");
+
     const location = useLocation();
     let message = "";
     let minhaprop = "";
@@ -23,7 +25,23 @@ export default function Projects() {
         minhaprop = location.state.minhaprop
 
     }
-    
+
+
+    function removeProject(id) {
+        fetch(`http://localhost:5001/projects/${id}`, {
+            method: "delete",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                setProjects(projects.filter((project) => project.id !== id))
+                setProjectMessage("Projeto excluído com sucesso")
+            })
+            .catch((err) => console.log(err));
+
+    }
     React.useEffect(() => {
         setTimeout(() => {
             fetch("http://localhost:5001/projects",
@@ -51,6 +69,7 @@ export default function Projects() {
             </div>
 
             {message && <Message msg={minhaprop} type="success" />}
+            {projectMessage && <Message msg={ projectMessage } type="success" />}
 
             <Container customClass="start"  >
                 {projects.length > 0 &&
@@ -59,8 +78,9 @@ export default function Projects() {
                             name={project.name + " " + index}
                             id={project.id}
                             budget={project.budget}
-                            category={project.category != undefined ? project.category.name : "nao inf"}
+                            category={project.category.name}
                             key={project.id}
+                            handleRemove={removeProject}
                            
                         />
                         ))
