@@ -2,6 +2,7 @@
 import Message from "../layout/Message";
 import { useLocation } from "react-router-dom";
 import Container from "../layout/Container";
+import Loading from "../layout/Loading";
 import LinkButton from "../layout/LinkButton";
 import styles from "./Projects.module.css";
 import ProjectCard from "../project/ProjectCard";
@@ -9,6 +10,8 @@ import ProjectCard from "../project/ProjectCard";
 
 export default function Projects() {
     const [projects, setProjects] = React.useState([]);
+
+    const [showLoading, setShowLoading] = React.useState(true);
 
     const location = useLocation();
     let message = "";
@@ -20,21 +23,24 @@ export default function Projects() {
         minhaprop = location.state.minhaprop
 
     }
-
+    
     React.useEffect(() => {
-        fetch("http://localhost:5001/projects",
-            {
-                method:"get",
-                headers: {
-                    "content-type": "application/json"
+        setTimeout(() => {
+            fetch("http://localhost:5001/projects",
+                {
+                    method:"get",
+                    headers: {
+                        "content-type": "application/json"
                 }
-            })
+                })
             .then((resp) => resp.json())
-            .then((data) => {
-                console.log(data);
-                setProjects(data);
-            })
-            .catch((erro) => console.log(erro));
+                .then((data) => {
+                    console.log(data);
+                    setProjects(data);
+                    setShowLoading(false);
+                })
+                .catch((erro) => console.log(erro));}, 500);
+
     }, []);
 
     return (
@@ -59,6 +65,11 @@ export default function Projects() {
                         />
                         ))
                 }
+
+                {showLoading && <Loading />}
+                {!showLoading && projects.length === 0 && (
+                    <p>Não há projetos cadastrados</p>
+                    )}
                 <ProjectCard/>
             </Container>
         </div>
