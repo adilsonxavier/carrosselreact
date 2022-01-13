@@ -7,7 +7,7 @@
     margin: 0 auto; /*  0 : margin superior e inferior serão 0, auto: margin esquerda e direita serão iguais(obj fica centralizado na
                     horizontal   */
     flex-wrap:wrap;/* quando os elementos filhos ultrapassarem 1200px vão pra baixo em uma nova linha;*/
-    flex-direction:column;
+    /*flex-direction:column;*/
 }
 
 

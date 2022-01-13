@@ -4,9 +4,12 @@ import { useLocation } from "react-router-dom";
 import Container from "../layout/Container";
 import LinkButton from "../layout/LinkButton";
 import styles from "./Projects.module.css";
+import ProjectCard from "../project/ProjectCard";
 //import { container } from "webpack";
 
 export default function Projects() {
+    const [projects, setProjects] = React.useState([]);
+
     const location = useLocation();
     let message = "";
     let minhaprop = "";
@@ -18,6 +21,22 @@ export default function Projects() {
 
     }
 
+    React.useEffect(() => {
+        fetch("http://localhost:5001/projects",
+            {
+                method:"get",
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log(data);
+                setProjects(data);
+            })
+            .catch((erro) => console.log(erro));
+    }, []);
+
     return (
         <div className={styles.project_container }>
             <div className={styles.title_container}>
@@ -28,7 +47,19 @@ export default function Projects() {
             {message && <Message msg={minhaprop} type="success" />}
 
             <Container customClass="start"  >
-                <p>Projetos</p>
+                {projects.length > 0 &&
+                    projects.map((project,index) => (
+                        <ProjectCard
+                            name={project.name + " " + index}
+                            id={project.id}
+                            budget={project.budget}
+                            category={project.category != undefined ? project.category.name : "nao inf"}
+                            key={project.id}
+                           
+                        />
+                        ))
+                }
+                <ProjectCard/>
             </Container>
         </div>
     );
