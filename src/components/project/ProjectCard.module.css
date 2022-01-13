@@ -81,5 +81,5 @@
     .project_card_actions button:hover {
         background-color: #222;
         color: #fb3;
-        transition: 0.5s;
+        transition: 0.5s; 
     }
