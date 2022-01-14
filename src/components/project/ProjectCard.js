@@ -24,7 +24,7 @@ export default function ProjectCard({ id,name,budget,category, handleRemove}) {
                 <span className={category ? `${styles[category.toLowerCase()]}` : ''}></span>{category}
             </p>
             <div className={styles.project_card_actions}>
-                <Link to="/" ><BsPencil /> editar </Link>
+                <Link to={`/project/${id}/adilson` } ><BsPencil /> editar </Link>
                 <button onClick={remove}><BsFillTrashFill /> Remover</button>
                 {/* veja que eu não uso diretamente o método handleRemove que veio como argumento da função ( e que 
                  * foi chamado no componente Projects.js . Ao invéz disso eu uso o método remove(criado mais acima) e ele
