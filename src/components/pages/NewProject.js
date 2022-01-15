@@ -8,6 +8,7 @@ export default function NewProject() {
     const history = useHistory();
 
     function createPost(project) {
+
         // iniciar cost e service
         project.cost = 0;
         project.service = [];

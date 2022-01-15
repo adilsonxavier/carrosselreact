@@ -21,7 +21,7 @@ export default function Projects() {
     let minhaprop = "";
 
     if (location.state) {
-        alert(location.state.minhaprop);
+       // alert(location.state.minhaprop);
         message = location.state.message;
         minhaprop = location.state.minhaprop
 
