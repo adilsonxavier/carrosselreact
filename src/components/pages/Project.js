@@ -18,6 +18,7 @@ export default function Project() {
 
     const [project, setProject] = React.useState({}); // Se n]ao iniciar com  um objeto vazio dá erro projec is undefined
     const [showProjectForm, setShowProjectForm] = React.useState(false);
+    const [showServiceForm, setShowServiceForm] = React.useState(false);
 
     const [message, setMessage] = React.useState();
     const [messageType, setMessageType] = React.useState();
@@ -42,7 +43,15 @@ export default function Project() {
         setShowProjectForm(!showProjectForm);
     }
 
+    function toggleServiceForm() {
+        setShowServiceForm(!showServiceForm);
+    }
+
     function editPost(project) {
+
+        setMessage(""); // Quando a mensagem é a mesma na mesma página( Ex: um projeto é atualizado mais de uma vez) a segunda
+                        // mensagem de sucesso não é exibida por que a mensagem é a mesma que apareceu na primeira vez
+                        // Esta linha corrige este problema
 
         if (project.cost > project.budget) {
             setMessage("orçamento menor que o custo");
@@ -112,7 +121,19 @@ export default function Project() {
                                         )
                                 }
                             </div>
-
+                            <div className={styles.service_form_container} >
+                                <h2>adicione Serviço</h2>
+                                <button className={styles.btn} onClick={toggleServiceForm} >
+                                    {showServiceForm ? "Fechar" : " Editar"}
+                                </button>
+                                <div className={ styles.project_info }>
+                                    {showServiceForm && <div >form servico</div>}
+                                </div>
+                            </div>
+                            <h2>Serviços</h2>
+                            <Container customClass="start" >
+                                <p>Item serviço</p>
+                            </Container>
 
                         </Container>
                   </div>
