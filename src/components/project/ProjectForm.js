@@ -27,9 +27,11 @@ export default function ProjectForm({ handleSubmit,btnText,projectData }) {
     );
 
     const submit = (e) => {
-        alert("dfdsa");
+      //  alert("dfdsa");
+     
         e.preventDefault();
       //  console.log(project);
+      
         handleSubmit(project);
 
     }
