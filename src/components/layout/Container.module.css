@@ -1,6 +1,6 @@
-﻿.Container
+﻿.container
 {
-    border:solid 1px #000;
+   /*border:solid 1px #000;*/
     max-width:1200px; 
     display:flex;
     justify-content:space-between; /*Os elementos filhos ocuparão todos os 1200px ficando igualmente separados por espaço entre eles*/
@@ -18,7 +18,7 @@
 .start {
     justify-content:flex-start ;
 }
-.columm {
+.column {
     flex-direction: column;
     justify-content: flex-start;
 }
