@@ -5,6 +5,8 @@ import Loading from "../layout/Loading";
 import Container from "../layout/Container";
 import ProjectForm from "../project/ProjectForm";
 import Message from "../layout/Message";
+import ServiceForm from "../service/ServiceForm";
+import { parse, v4 as uuidv4 } from "uuid";
 
 export default function Project() {
     const { id } = useParams();
@@ -39,6 +41,40 @@ export default function Project() {
     }, [id]
     );
 
+
+    function createService(project) {
+        setMessage("");
+
+        const lastService = project.services[project.services.length - 1];
+        lastService.id = uuidv4();
+
+        const newCost = parseFloat(project.cost) + parseFloat(lastService.cost);
+
+        if (newCost > parseFloat(project.budget)) {
+            setMessage("orçamento ultrapassado" + Date.now() );
+            setMessageType("error");
+            project.services.pop(); // o pop remove o ultimo item do array
+            return false;
+        }
+
+        project.cost = newCost;
+        fetch(`http://localhost:5001/projects/${project.id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(project)
+            }
+        )
+            .then((resp) => resp.json())
+            .then((data) => {
+                // exibir serviço
+                console.log(data);
+            })
+            .catch((erro) => console.log(erro));
+
+    }
     function toggleProjectForm() {
         setShowProjectForm(!showProjectForm);
     }
@@ -56,6 +92,7 @@ export default function Project() {
         if (project.cost > project.budget) {
             setMessage("orçamento menor que o custo");
             setMessageType("error");
+
             return false;
         }
 
@@ -124,10 +161,16 @@ export default function Project() {
                             <div className={styles.service_form_container} >
                                 <h2>adicione Serviço</h2>
                                 <button className={styles.btn} onClick={toggleServiceForm} >
-                                    {showServiceForm ? "Fechar" : " Editar"}
+                                    {showServiceForm ? "Fechar serviço" : "Adicionar serviço"}
                                 </button>
                                 <div className={ styles.project_info }>
-                                    {showServiceForm && <div >form servico</div>}
+                                    {showServiceForm && (
+                                        <ServiceForm
+                                            handleSubmit={createService}
+                                            btnText="Adicionar serviço"
+                                            projectData={project}
+                                        />
+                                        )}
                                 </div>
                             </div>
                             <h2>Serviços</h2>
