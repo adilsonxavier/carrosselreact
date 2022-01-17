@@ -8,7 +8,7 @@ export default function ServiceCard({ name,cost,description,id, handleRemove,cus
    // className = {`${styles[]}`}
     const remove  = (e) => {
         e.preventDefault();
-        handleRemove(id);
+        handleRemove(id,cost);
         /* o handleRemove na verdade executa a função removeProject(id) no elemento pai 
             Projects.js que efetivamente exclui o projeto chamando o delete da API via fetch*/
 
@@ -27,7 +27,6 @@ export default function ServiceCard({ name,cost,description,id, handleRemove,cus
                 <span>Descrição:</span>&nbsp;{description}
             </p>
             <div className={styles.project_card_actions}>
-                <Link to={`/project/${id}/adilson` } ><BsPencil /> editar </Link>
                 <button onClick={remove}><BsFillTrashFill /> Remover</button>
                 {/* veja que eu não uso diretamente o método handleRemove que veio como argumento da função ( e que 
                  * foi chamado no componente Projects.js . Ao invéz disso eu uso o método remove(criado mais acima) e ele

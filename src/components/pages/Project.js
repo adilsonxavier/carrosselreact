@@ -26,6 +26,7 @@ export default function Project() {
     const [message, setMessage] = React.useState();
     const [messageType, setMessageType] = React.useState();
 
+    const [services, setServices] = React.useState([])
 
     React.useEffect(() => {
         setTimeout(() => {
@@ -36,7 +37,10 @@ export default function Project() {
                 }
             })
                 .then((resp) => resp.json())
-                .then((data) => setProject(data))
+                .then((data) => {
+                    setProject(data);
+                    setServices(data.services)
+                })
                 .catch((erro) => console.log(erro));
         }, 500);
     }, [id]
@@ -70,9 +74,10 @@ export default function Project() {
         )
             .then((resp) => resp.json())
             .then((data) => {
-                // exibir serviço
-                console.log(data);
-                setShowServiceForm(false);
+                setServices(data.services)
+                setShowServiceForm(!showServiceForm)
+                setMessage('Serviço adicionado!')
+                setType('success')
             })
             .catch((erro) => console.log(erro));
 
@@ -86,7 +91,31 @@ export default function Project() {
     }
 
 
-    function removeService() {
+    function removeService(id, cost) {
+        // Este método na prática não remove diretamente no banco o serviço e sim atualiza o project sem o projeto
+        // Não me parece que esta abordagem funciona em um banco relacional, verificar
+
+        const servicesUpdated= project.services.filter((service) => service.id != id);
+        const projectUpdated = project;
+        projectUpdated.services = servicesUpdated;
+        projectUpdated.cost -= cost;
+  
+        fetch(`http://localhost:5001/projects/${projectUpdated.id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type":"application/json"
+            },
+            body : JSON.stringify(projectUpdated)
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log(data);
+                setProject(projectUpdated);
+                setServices(servicesUpdated)
+                setMessage("Serviço excluido");
+                setMessageType("success");
+            })
+            .catch((erro) => console.log("erro linha 118:"+erro));
 
     }
 
@@ -185,19 +214,20 @@ export default function Project() {
 
                             <h2>Serviços</h2>
                             <Container customClass="start" >
-                                {project.services.length > 0 && (
-                                    project.services.map((service) => (
+                                {services.length > 0 && (
+                                    services.map((service) => (
                                         <ServiceCard
                                             name={service.name}
                                             cost={service.cost}
                                             description={service.description}
                                             id={service.id}
                                             handleRemove={removeService}
+                                            key={service.id}
                                         />
                                     ))
                                 )}
 
-                                {project.services.length == 0 && (
+                                {services.length == 0 && (
                                     <p> não tem serviço </p>
                                 )}
                             </Container>
