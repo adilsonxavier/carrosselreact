@@ -7,6 +7,7 @@ import ProjectForm from "../project/ProjectForm";
 import Message from "../layout/Message";
 import ServiceForm from "../service/ServiceForm";
 import { parse, v4 as uuidv4 } from "uuid";
+import ServiceCard from "../service/ServiceCard";
 
 export default function Project() {
     const { id } = useParams();
@@ -71,6 +72,7 @@ export default function Project() {
             .then((data) => {
                 // exibir serviço
                 console.log(data);
+                setShowServiceForm(false);
             })
             .catch((erro) => console.log(erro));
 
@@ -81,6 +83,11 @@ export default function Project() {
 
     function toggleServiceForm() {
         setShowServiceForm(!showServiceForm);
+    }
+
+
+    function removeService() {
+
     }
 
     function editPost(project) {
@@ -173,9 +180,26 @@ export default function Project() {
                                         )}
                                 </div>
                             </div>
+
+                            {/* Lista de Serviços do projeto */ }
+
                             <h2>Serviços</h2>
                             <Container customClass="start" >
-                                <p>Item serviço</p>
+                                {project.services.length > 0 && (
+                                    project.services.map((service) => (
+                                        <ServiceCard
+                                            name={service.name}
+                                            cost={service.cost}
+                                            description={service.description}
+                                            id={service.id}
+                                            handleRemove={removeService}
+                                        />
+                                    ))
+                                )}
+
+                                {project.services.length == 0 && (
+                                    <p> não tem serviço </p>
+                                )}
                             </Container>
 
                         </Container>
