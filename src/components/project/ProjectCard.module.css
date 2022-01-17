@@ -6,6 +6,9 @@
     margin: 0.5%;
 }
 
+.service_card{
+    width:100%;
+}
     .project_card h4 {
         background-color: #222;
         color: #ff8833;
