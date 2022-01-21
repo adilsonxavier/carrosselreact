@@ -11,13 +11,13 @@ export default function NewProject() {
 
         // iniciar cost e service
         project.cost = 0;
-        project.service = [];
+        project.services = [];
 
         // O endpont abaixo usa o json-server que é uma lib que cria uma API fake para teste
         // para inserir um registro por exemplo basta  executar o POST e passar o json no Body
 
         fetch("http://localhost:5001/projects", {
-            method: "POST",
+            method: "post",
             headers: {
                 "content-type": "application/json"
             },

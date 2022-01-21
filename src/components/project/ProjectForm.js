@@ -27,7 +27,7 @@ export default function ProjectForm({ handleSubmit,btnText,projectData }) {
     );
 
     const submit = (e) => {
-      //  alert("dfdsa");
+        alert("botão submit");
      
         e.preventDefault();
       //  console.log(project);
@@ -88,7 +88,8 @@ export default function ProjectForm({ handleSubmit,btnText,projectData }) {
                 value={project.category ? project.category.id : ""} // Sem esta linha o valor do state é atualizado mas o
                                                                     // select box fica sempre mostrando "selecione opção"
             />
-            <SubmitButton  labelText={ btnText}/>
+            {/*<SubmitButton  labelText={ btnText}/>*/}
+            <button type="submit">btn {btnText}</button>
 
         </form>
     );
