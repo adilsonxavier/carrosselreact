@@ -92,7 +92,7 @@ export default function Project() {
 
 
     function removeService(id, cost) {
-        // Este método na prática não remove diretamente no banco o serviço e sim atualiza o project sem o projeto
+        // Este método na prática não remove diretamente no banco o serviço e sim atualiza o project sem o servico removido
         // Não me parece que esta abordagem funciona em um banco relacional, verificar
 
         const servicesUpdated= project.services.filter((service) => service.id != id);

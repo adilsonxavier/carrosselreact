@@ -3,7 +3,7 @@
     margin:0;
     box-sizing: border-box; /*nao ultrapassar tamanho do elemento pai*/
     font-family:"Open Sans",sans-serif ; /*procurar no google fonts e copiar e colar html no index.html*/
-   /* border: dashed 1px red;*/
+  /*  border: dashed 1px red;*/
 }
 
 html,body,#root
