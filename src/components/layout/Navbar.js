@@ -1,6 +1,5 @@
 ﻿import React from "react";
 import { Link } from "react-router-dom";
-import Container from "./Container";
 import styles from "./Navbar.module.css";
 import logo from "../../img/costs_logo.png";
 
@@ -14,19 +13,12 @@ export default function Navbar(props) {
                 <li>
                     <Link to="/" >Home</Link>  {/* o Link é renderizado como uma tag <a>*/}
                 </li>
-                <li>
-                    <Link to="/projects" >Projetos</Link>
-                </li>
+
                 <li>
                     <Link to="/company" >Empresa</Link>
                 </li>
 
-                <li>
-                    <Link to="/contact" >Contato</Link>
-                </li>
-                <li>
-                    <Link to="/newproject" >Novo Projeto</Link>
-                </li>
+
             </ul>
 
             {/*            </Container>*/}
