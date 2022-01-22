@@ -1,33 +1,75 @@
 ﻿import React from "react";
-import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom"
-import Home from "./components/pages/Home";
-import Company from "./components/pages/Company";
-import Container from "./components/layout/Container";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import logo from "./static/images/super-shoes.png";
+import "./App.css";
+import chevronright from "./static/images/chevronright.png";
 
 export default function App() {
+    const [data, setData] = React.useState([])
+    const carouselRef = React.useRef(null)
+
+    React.useEffect((
+    ) => {
+        fetch("http://localhost:3054/public/shoes.json",
+            {
+                method: "get",
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+            .then((resp) => resp.json())
+            .then((shoes) => setData(shoes))
+            .catch((erro) => console.log(erro));
+    }, []);
+
+    if (!data || !data.length) { return false; }
+
+    const handleLeftClick = (e) => {
+        e.preventDefault();
+        console.log(carouselRef.current.offsetWidth);
+        console.log(carouselRef.current.offsetHeight);
+        carouselRef.current.scrollLeft -= carouselRef.current.offsetWidth 
+    }
+
+    const handleRightClick = (e) => {
+        e.preventDefault();
+        carouselRef.current.scrollLeft += carouselRef.current.offsetWidth 
+    }
+
     return (
-        <Router >
+        (data &&
+            (
+
+                <div className="container">
+                    <div className="logo">
+                        <img src={logo} alt="imagem" />
+                    </div>
+
+                <div className="carousel" ref={carouselRef }>
+                        {data.map((item) => {
+                            const { id, name, price, oldPrice, image } = item;
+                            return (
+                                <div className="item" key={id}>
+                                    <div className="image">
+                                        <img src={image} alt="shoe" />
+                                    </div>
+                                    <div className="info">
+                                        <span className="name">{name}</span>
+                                        <span className="oldPrice">{oldPrice}</span>
+                                        <span className="price">{price}</span>
+
+                                    </div>
+                                </div>)
+                        })}
 
 
-            <Header />
-
-            <Container >
-            <Switch>
-
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route  path="/company">
-                        <Company />
-                    </Route>
-              
-             </Switch>
-
-            </Container>
-          <Footer/>
-        </Router>
-
+                    </div>
+                    <div className="buttons" >
+                    <button onClick={ handleLeftClick}> <img src={chevronright} alt="scroll left" /> </button>
+                    <button onClick={handleRightClick} > <img src={chevronright} alt="scroll right" /> </button>
+                    </div>
+                </div>
+            )
+        )
     );
 }
+
